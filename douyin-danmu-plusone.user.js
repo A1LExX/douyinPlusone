@@ -17,7 +17,7 @@
     // --------- 配置 ---------
     const DANMU_SELECTOR = 'xg-danmu div'; // 弹幕单条
     const DANMU_CONTAINER_SELECTOR = 'xg-danmu';
-    const BUTTON_TEXT = '加一';
+    const BUTTON_TEXT = '+1';
     const BUTTON_ID = '__douyin_plusone_btn__';
     const BUTTON_STYLE = `
         position: fixed;
