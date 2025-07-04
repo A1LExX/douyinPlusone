@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         抖音弹幕加一助手
 // @namespace    http://tampermonkey.net/
-// @version      1.9
+// @version      1.10
 // @description  实现抖音弹幕鼠标悬停加一功能，体验类似于斗鱼加一功能
 // @author       A1LExX
 // @match        https://live.douyin.com/*
@@ -333,6 +333,7 @@
 (function checkUpdate() {
     const LOCAL_VERSION = '1.9'; // 与 @version 保持一致
     const REMOTE_URL = 'https://update.greasyfork.org/scripts/541432/%E6%8A%96%E9%9F%B3%E5%BC%B9%E5%B9%95%E5%8A%A0%E4%B8%80%E5%8A%A9%E6%89%8B%28imxiaoxin73%E6%AD%A3%E5%BC%8F%E5%85%A5%E9%A9%BB%E6%8A%96%E9%9F%B3%EF%BC%8C%E6%84%9F%E8%B0%A2%E5%A4%A7%E5%AE%B6%E6%8D%A7%E5%9C%BA%29.meta.js';
+    const HOMEPAGE_URL = 'https://greasyfork.org/zh-CN/scripts/541432-%E6%8A%96%E9%9F%B3%E5%BC%B9%E5%B9%95%E5%8A%A0%E4%B8%80%E5%8A%A9%E6%89%8B';
 
     // 只每24小时检查一次
     const lastCheck = localStorage.getItem('__douyin_plusone_update_check__') || 0;
@@ -342,12 +343,14 @@
     fetch(REMOTE_URL)
         .then(resp => resp.text())
         .then(text => {
-            const match = text.match(/@version\\s+([\\d.]+)/);
+            const match = text.match(/@version\s+([\d.]+)/);
             if (match) {
                 const remoteVersion = match[1];
                 if (compareVersion(remoteVersion, LOCAL_VERSION) > 0) {
                     setTimeout(() => {
-                        alert(`抖音弹幕加一助手有新版本：v${remoteVersion}，请前往 GreasyFork 更新！`);
+                        if (confirm(`抖音弹幕加一助手有新版本：v${remoteVersion}，是否前往GreasyFork更新？`)) {
+                            window.open(HOMEPAGE_URL, '_blank');
+                        }
                     }, 1000);
                 }
             }
