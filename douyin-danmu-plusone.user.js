@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         抖音弹幕加一助手
 // @namespace    http://tampermonkey.net/
-// @version      1.11
+// @version      1.13
 // @description  实现抖音弹幕鼠标悬停加一功能，体验类似于斗鱼加一功能
 // @author       A1LExX
 // @match        https://live.douyin.com/*
@@ -332,7 +332,7 @@
 
 // 检查更新函数
 function checkUpdate() {
-    const LOCAL_VERSION = '1.11'; // 与 @version 保持一致
+    const LOCAL_VERSION = '1.13'; // 与 @version 保持一致
     const REMOTE_URL = 'https://update.greasyfork.org/scripts/541432/%E6%8A%96%E9%9F%B3%E5%BC%B9%E5%B9%95%E5%8A%A0%E4%B8%80%E5%8A%A9%E6%89%8B.meta.js';
     const HOMEPAGE_URL = 'https://greasyfork.org/zh-CN/scripts/541432-%E6%8A%96%E9%9F%B3%E5%BC%B9%E5%B9%95%E5%8A%A0%E4%B8%80%E5%8A%A9%E6%89%8B';
 
