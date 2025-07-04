@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         抖音弹幕加一助手
 // @namespace    http://tampermonkey.net/
-// @version      1.14
+// @version      1.15
 // @description  实现抖音弹幕鼠标悬停加一功能，体验类似于斗鱼加一功能
 // @author       A1LExX
 // @match        https://live.douyin.com/*
