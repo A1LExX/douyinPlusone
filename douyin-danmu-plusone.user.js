@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         抖音弹幕加一助手
 // @namespace    http://tampermonkey.net/
-// @version      1.15
+// @version      1.16
 // @description  实现抖音弹幕鼠标悬停加一功能，体验类似于斗鱼加一功能
 // @author       A1LExX
 // @match        https://live.douyin.com/*
@@ -11,6 +11,7 @@
 // @license      GPL-3.0-only 
 // ==/UserScript==
 // ==Changelog==
+// v1.16 测试更新推送
 // v1.9  修复按钮垂直居中、视觉对齐问题，优化体验
 // v1.8  支持过滤系统弹幕，优化兼容性
 // v1.7  初始版本，实现弹幕加一功能
