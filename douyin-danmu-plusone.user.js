@@ -336,11 +336,6 @@ function checkUpdate() {
     const REMOTE_URL = 'https://update.greasyfork.org/scripts/541432/%E6%8A%96%E9%9F%B3%E5%BC%B9%E5%B9%95%E5%8A%A0%E4%B8%80%E5%8A%A9%E6%89%8B.meta.js';
     const HOMEPAGE_URL = 'https://greasyfork.org/zh-CN/scripts/541432-%E6%8A%96%E9%9F%B3%E5%BC%B9%E5%B9%95%E5%8A%A0%E4%B8%80%E5%8A%A9%E6%89%8B';
 
-    // 只每24小时检查一次
-    const lastCheck = localStorage.getItem('__douyin_plusone_update_check__') || 0;
-    if (Date.now() - lastCheck < 24 * 60 * 60 * 1000) return;
-    localStorage.setItem('__douyin_plusone_update_check__', Date.now());
-
     fetch(REMOTE_URL)
         .then(resp => resp.text())
         .then(text => {
