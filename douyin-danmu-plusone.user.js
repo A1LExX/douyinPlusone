@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         抖音弹幕加一助手(imxiaoxin7.3正式入驻抖音，感谢大家捧场)
+// @name         抖音弹幕加一助手
 // @namespace    http://tampermonkey.net/
-// @version      1.8
+// @version      1.9
 // @description  实现抖音弹幕鼠标悬停加一功能，体验类似于斗鱼加一功能
 // @author       A1LExX
 // @match        https://live.douyin.com/*
@@ -10,6 +10,11 @@
 // @grant        none
 // @license      GPL-3.0-only 
 // ==/UserScript==
+// ==Changelog==
+// v1.9  修复按钮垂直居中、视觉对齐问题，优化体验
+// v1.8  支持过滤系统弹幕，优化兼容性
+// v1.7  初始版本，实现弹幕加一功能
+// ==/Changelog==
 
 (function () {
     'use strict';
@@ -187,8 +192,9 @@
                     plusOneBtn.style.top = '-9999px';
                     setTimeout(() => {
                         const btnWidth = plusOneBtn.offsetWidth;
+                        const btnHeight = plusOneBtn.offsetHeight;
                         plusOneBtn.style.left = (rect.right - btnWidth - 4) + 'px';
-                        plusOneBtn.style.top = (rect.top) + 'px';
+                        plusOneBtn.style.top = (rect.top + (rect.height - btnHeight) / 2 + 3) + 'px';
                     }, 0);
                     plusOneText = text; // 存储内容
                 }
@@ -279,8 +285,8 @@
         setTimeout(() => {
             const btnWidth = plusOneBtn.offsetWidth;
             const btnHeight = plusOneBtn.offsetHeight;
-            plusOneBtn.style.left = (rect.right + 8) + 'px';
-            plusOneBtn.style.top = (rect.top + (rect.height - btnHeight) / 2) + 'px';
+            plusOneBtn.style.left = (rect.right - btnWidth - 4) + 'px';
+            plusOneBtn.style.top = (rect.top + (rect.height - btnHeight) / 2 + 3) + 'px';
         }, 0);
 
         // 悬停弹幕样式：圆角+淡黑色边框
@@ -322,4 +328,38 @@
         currentDanmu = null;
     }
 
+})();
+
+(function checkUpdate() {
+    const LOCAL_VERSION = '1.9'; // 与 @version 保持一致
+    const REMOTE_URL = 'https://update.greasyfork.org/scripts/541432/%E6%8A%96%E9%9F%B3%E5%BC%B9%E5%B9%95%E5%8A%A0%E4%B8%80%E5%8A%A9%E6%89%8B%28imxiaoxin73%E6%AD%A3%E5%BC%8F%E5%85%A5%E9%A9%BB%E6%8A%96%E9%9F%B3%EF%BC%8C%E6%84%9F%E8%B0%A2%E5%A4%A7%E5%AE%B6%E6%8D%A7%E5%9C%BA%29.meta.js';
+
+    // 只每24小时检查一次
+    const lastCheck = localStorage.getItem('__douyin_plusone_update_check__') || 0;
+    if (Date.now() - lastCheck < 24 * 60 * 60 * 1000) return;
+    localStorage.setItem('__douyin_plusone_update_check__', Date.now());
+
+    fetch(REMOTE_URL)
+        .then(resp => resp.text())
+        .then(text => {
+            const match = text.match(/@version\\s+([\\d.]+)/);
+            if (match) {
+                const remoteVersion = match[1];
+                if (compareVersion(remoteVersion, LOCAL_VERSION) > 0) {
+                    setTimeout(() => {
+                        alert(`抖音弹幕加一助手有新版本：v${remoteVersion}，请前往 GreasyFork 更新！`);
+                    }, 1000);
+                }
+            }
+        });
+
+    function compareVersion(a, b) {
+        const pa = a.split('.').map(Number), pb = b.split('.').map(Number);
+        for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
+            const na = pa[i] || 0, nb = pb[i] || 0;
+            if (na > nb) return 1;
+            if (na < nb) return -1;
+        }
+        return 0;
+    }
 })();
